@@ -1,10 +1,11 @@
 package com.app.service;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.app.criteria.FlightReservationSearchCriteria;
 import com.app.model.FlightReservation;
 
 @Service
@@ -12,7 +13,7 @@ public interface FlightReservationService {
 
 	public String createFlightReservation(FlightReservation flightReservation);
 
-	public List<FlightReservation> fetchAllFlightReservations();
+	public Page<FlightReservation> fetchAllFlightReservations(FlightReservationSearchCriteria flightReservationSearchCriteria);
 
 	public Optional<FlightReservation> fetchFlightReservationById(Long flightReservationId);
 

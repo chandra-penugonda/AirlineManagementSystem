@@ -10,7 +10,8 @@ import lombok.Data;
 public class Airport {
 
 	@Id
-	private Long airportCode;
+	private Long id;
+	private String airportCode;
 	private String airportLocation;
 	private String airportName;
 }

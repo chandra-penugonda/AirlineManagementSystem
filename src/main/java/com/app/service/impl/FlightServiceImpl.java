@@ -1,11 +1,13 @@
 package com.app.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.app.criteria.FlightSearchCriteria;
+import com.app.criteria.specification.FlightSearchSpecification;
 import com.app.dao.AirportDao;
 import com.app.dao.FlightDao;
 import com.app.exception.DuplicateDataException;
@@ -31,8 +33,8 @@ public class FlightServiceImpl implements FlightService {
 
 		if (!flightById.isPresent()) {
 
-			Optional<Airport> srcAirportById = airportDao.findById(flight.getSource().getAirportCode());
-			Optional<Airport> destAirportById = airportDao.findById(flight.getDestination().getAirportCode());
+			Optional<Airport> srcAirportById = airportDao.findById(flight.getSource().getId());
+			Optional<Airport> destAirportById = airportDao.findById(flight.getDestination().getId());
 
 			if (srcAirportById.isPresent() && destAirportById.isPresent()) {
 
@@ -47,8 +49,9 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override
-	public List<Flight> fetchAllFlights() {
-		return flightDao.findAll();
+	public Page<Flight> fetchAllFlights(FlightSearchCriteria flightSearchCriteria) {
+		return flightDao.findAll(FlightSearchSpecification.findByCriteria(flightSearchCriteria),
+				flightSearchCriteria.toPageRequest());
 	}
 
 	@Override
@@ -64,8 +67,8 @@ public class FlightServiceImpl implements FlightService {
 
 		if (flightById.isPresent()) {
 
-			Optional<Airport> srcAirportById = airportDao.findById(flight.getSource().getAirportCode());
-			Optional<Airport> destAirportById = airportDao.findById(flight.getDestination().getAirportCode());
+			Optional<Airport> srcAirportById = airportDao.findById(flight.getSource().getId());
+			Optional<Airport> destAirportById = airportDao.findById(flight.getDestination().getId());
 
 			if (srcAirportById.isPresent() && destAirportById.isPresent()) {
 				flightDao.save(flight);

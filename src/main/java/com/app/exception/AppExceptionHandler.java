@@ -23,4 +23,9 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<?> invalidResourceException(InvalidResourceException resourceEx) {
 		return new ResponseEntity<>(resourceEx.getMessage(), HttpStatus.BAD_REQUEST);
 	}
+
+	@ExceptionHandler(UnSupportedOperationException.class)
+	public ResponseEntity<?> unSupportedOperationException(UnSupportedOperationException operationEx) {
+		return new ResponseEntity<>(operationEx.getMessage(), HttpStatus.BAD_REQUEST);
+	}
 }

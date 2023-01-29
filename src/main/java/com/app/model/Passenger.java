@@ -1,6 +1,7 @@
 package com.app.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import com.app.model.enums.IdentityType;
 
@@ -10,6 +11,8 @@ import lombok.Data;
 @Data
 public class Passenger {
 
+	@Id
+	private Long id;
 	private String name;
 	private int age;
 	private IdentityType identityType;

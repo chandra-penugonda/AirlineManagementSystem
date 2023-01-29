@@ -25,6 +25,7 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 
 	runtimeOnly 'mysql:mysql-connector-java'
+	runtimeOnly 'com.h2database:h2'
 	
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'

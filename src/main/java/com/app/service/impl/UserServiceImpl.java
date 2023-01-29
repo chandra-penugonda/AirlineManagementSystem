@@ -1,11 +1,13 @@
 package com.app.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.app.criteria.UserSearchCriteria;
+import com.app.criteria.specification.UserSearchSpecification;
 import com.app.dao.UserDao;
 import com.app.exception.DuplicateDataException;
 import com.app.exception.ResourceNotFoundException;
@@ -32,8 +34,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> fetchAllUsers() {
-		return userDao.findAll();
+	public Page<User> fetchAllUsers(UserSearchCriteria userSearchCriteria) {
+		return userDao.findAll(UserSearchSpecification.findByCriteria(userSearchCriteria),
+				userSearchCriteria.toPageRequest());
 	}
 
 	@Override

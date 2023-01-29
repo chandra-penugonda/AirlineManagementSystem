@@ -2,24 +2,18 @@ package com.app.service.impl;
 
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Service;
+
 import com.app.service.NotificationService;
 
-public class SmsNotification extends NotificationService {
-
-	private int mobileNo;
-
-	public SmsNotification(int mobileNo, int notificatonId, LocalDateTime notificationDateTime,
-			String notificationContent) {
-		super(notificatonId, notificationDateTime, notificationContent);
-		this.mobileNo = mobileNo;
-	}
+@Service
+public class SmsNotification implements NotificationService {
 
 	@Override
-	public boolean sendNotification() {
-		boolean notificationStatus = false;
-
-		// initiateNotification;
-		return notificationStatus;
+	public <T, V> boolean sendNotification(T sender, V reciever, String notificationId,
+			LocalDateTime notificationTimestamp, String notificationContext) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

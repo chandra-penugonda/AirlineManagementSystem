@@ -2,14 +2,11 @@ package com.app.service;
 
 import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
-public abstract class NotificationService {
+@Service
+public interface NotificationService {
 
-	private int notificatonId;
-	private LocalDateTime notificationDateTime;
-	private String notificationContent;
-
-	public abstract boolean sendNotification();
+	public <T, V> boolean sendNotification(T sender, V reciever, String notificationId, LocalDateTime notificationTimestamp,
+			String notificationContext);
 }

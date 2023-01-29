@@ -2,13 +2,11 @@ package com.app.service.impl;
 
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Service;
+
 import com.app.service.PaymentService;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
+@Service
 public class UPIPayment implements PaymentService {
 
 	private String upiId;
@@ -19,7 +17,7 @@ public class UPIPayment implements PaymentService {
 	public boolean pay(double amount) {
 		boolean transactionStatus = false;
 
-		//initiateTransaction
+		// initiateTransaction
 		return transactionStatus;
 	}
 

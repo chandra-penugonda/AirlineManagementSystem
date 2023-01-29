@@ -1,11 +1,11 @@
 package com.app.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.criteria.FlightReservationSearchCriteria;
 import com.app.model.FlightReservation;
 import com.app.service.FlightReservationService;
 
@@ -33,8 +34,9 @@ public class FlightReservationController {
 	}
 
 	@GetMapping("/getAllFlightReservationInfo")
-	public List<FlightReservation> fetchAllFlightReservations() {
-		return flightReservationService.fetchAllFlightReservations();
+	public Page<FlightReservation> fetchAllFlightReservations(
+			FlightReservationSearchCriteria flightReservationSearchCriteria) {
+		return flightReservationService.fetchAllFlightReservations(flightReservationSearchCriteria);
 	}
 
 	@GetMapping("/getFlightReservationInfo/{id}")

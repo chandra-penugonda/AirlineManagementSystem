@@ -1,10 +1,11 @@
 package com.app.service;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.app.criteria.FlightScheduleSearchCriteria;
 import com.app.model.FlightSchedule;
 
 @Service
@@ -12,7 +13,7 @@ public interface FlightScheduleService {
 
 	public String addFlightSchedule(FlightSchedule flightSchedule);
 
-	public List<FlightSchedule> fetchAllFlightSchedules();
+	public Page<FlightSchedule> fetchAllFlightSchedules(FlightScheduleSearchCriteria flightScheduleSearchCriteria);
 
 	public Optional<FlightSchedule> fetchFlightScheduleById(Long flightScheduleId);
 

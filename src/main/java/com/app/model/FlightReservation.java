@@ -3,6 +3,7 @@ package com.app.model;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -18,6 +19,8 @@ public class FlightReservation {
 	private Long reservationID;
 	@OneToOne(fetch = FetchType.LAZY)
 	private FlightSchedule flightSchedule;
+	
+	@ElementCollection
 	private Map<Integer, Passenger> seatMap;
 	private LocalDateTime transactionDate;
 	private String status;

@@ -1,10 +1,13 @@
 package com.app.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
+import com.app.criteria.FlightScheduleSearchCriteria;
+import com.app.criteria.specification.FlightScheduleSearchSpecification;
 import com.app.dao.FlightDao;
 import com.app.dao.FlightScheduleDao;
 import com.app.exception.DuplicateDataException;
@@ -14,6 +17,7 @@ import com.app.model.Flight;
 import com.app.model.FlightSchedule;
 import com.app.service.FlightScheduleService;
 
+@Service
 public class FlightScheduleServiceImpl implements FlightScheduleService {
 
 	@Autowired
@@ -45,8 +49,9 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
 	}
 
 	@Override
-	public List<FlightSchedule> fetchAllFlightSchedules() {
-		return flightScheduleDao.findAll();
+	public Page<FlightSchedule> fetchAllFlightSchedules(FlightScheduleSearchCriteria flightScheduleSearchCriteria) {
+		return flightScheduleDao.findAll(FlightScheduleSearchSpecification.findByCriteria(flightScheduleSearchCriteria),
+				flightScheduleSearchCriteria.toPageRequest());
 	}
 
 	@Override
@@ -70,7 +75,8 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
 				throw new InvalidResourceException("Flight with Id: " + flightId + " not exists");
 			}
 		} else {
-			throw new ResourceNotFoundException("FlightSchedule with Id - " + flightSchedule.getFlightScheduleId() + " not exists");
+			throw new ResourceNotFoundException(
+					"FlightSchedule with Id - " + flightSchedule.getFlightScheduleId() + " not exists");
 		}
 		return flightSchedule;
 	}
