@@ -15,7 +15,7 @@ public interface AirportService {
 
 	public Page<Airport> fetchAllAirports(AirportSearchCriteria airportSearchCriteria);
 
-	public Optional<Airport> fetchAirportByCode(Long airportId);
+	public Optional<Airport> fetchAirportById(Long airportId);
 
 	public Airport updateAirportDetails(Airport airport);
 
