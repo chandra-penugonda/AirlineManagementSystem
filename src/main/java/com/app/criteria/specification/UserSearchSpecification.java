@@ -19,19 +19,19 @@ public class UserSearchSpecification {
 			List<Predicate> predicates = new ArrayList<Predicate>();
 
 			if (searchCriteria.getUserType() != null) {
-				predicates.add(cb.like(root.get("code"), "%" + searchCriteria.getUserType() + "%"));
+				predicates.add(cb.like(root.get("userType"), "%" + searchCriteria.getUserType() + "%"));
 			}
 
 			if (searchCriteria.getUserName() != null) {
-				predicates.add(cb.like(root.get("name"), "%" + searchCriteria.getUserName() + "%"));
+				predicates.add(cb.like(root.get("username"), "%" + searchCriteria.getUserName() + "%"));
 			}
 
 			if (searchCriteria.getMobileNo() != null) {
-				predicates.add(cb.like(root.get("location"), "%" + searchCriteria.getMobileNo() + "%"));
+				predicates.add(cb.like(root.get("mobile"), "%" + searchCriteria.getMobileNo() + "%"));
 			}
 
 			if (searchCriteria.getEmailId() != null) {
-				predicates.add(cb.like(root.get("location"), "%" + searchCriteria.getEmailId() + "%"));
+				predicates.add(cb.like(root.get("email"), "%" + searchCriteria.getEmailId() + "%"));
 			}
 
 			if (predicates.size() > 0) {

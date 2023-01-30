@@ -3,12 +3,10 @@ package com.app.service;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 
 import com.app.criteria.FlightReservationSearchCriteria;
 import com.app.model.FlightReservation;
 
-@Service
 public interface FlightReservationService {
 
 	public String createFlightReservation(FlightReservation flightReservation);

@@ -24,10 +24,6 @@ public class FlightReservationSearchSpecification {
 				predicates.add(cb.like(root.get("flightscheduleID"), "%" + searchCriteria.getFlightScheduleId() + "%"));
 			}
 
-			if (searchCriteria.getPassengerName() != null) {
-				predicates.add(cb.like(root.get("passengerName"), "%" + searchCriteria.getPassengerName() + "%"));
-			}
-
 			if (searchCriteria.getTransactionDate() != null) {
 				predicates.add(cb.like(root.get("transactionDate"), "%" + searchCriteria.getTransactionDate() + "%"));
 			}

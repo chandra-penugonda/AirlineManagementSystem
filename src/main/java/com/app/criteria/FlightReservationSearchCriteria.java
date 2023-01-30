@@ -1,6 +1,6 @@
 package com.app.criteria;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -13,12 +13,11 @@ public class FlightReservationSearchCriteria {
 
 	int offset = 0;
 	int limit = 100;
-	String sortOn = "reservationID";
+	String sortOn = "id";
 	String sortOrder = "ASC";
 
 	private Long flightScheduleId;
-	private String passengerName;
-	private LocalDateTime transactionDate;
+	private Timestamp transactionDate;
 	private String status;
 
 	Sort buildSort() {

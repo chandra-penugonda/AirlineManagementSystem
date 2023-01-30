@@ -23,15 +23,15 @@ public class FlightSearchSpecification {
 			}
 
 			if (searchCriteria.getSrcAirportCode() != null) {
-				predicates.add(cb.like(root.get("srcAirportCode"), "%" + searchCriteria.getSrcAirportCode() + "%"));
+				predicates.add(cb.like(root.get("source"), "%" + searchCriteria.getSrcAirportCode() + "%"));
 			}
 
 			if (searchCriteria.getDestAirportCode() != null) {
-				predicates.add(cb.like(root.get("destAirportCode"), "%" + searchCriteria.getDestAirportCode() + "%"));
+				predicates.add(cb.like(root.get("destination"), "%" + searchCriteria.getDestAirportCode() + "%"));
 			}
 
 			if (searchCriteria.getSeatingCapacity() > 0) {
-				predicates.add(cb.equal(root.get("totalSeats"), searchCriteria.getSeatingCapacity()));
+				predicates.add(cb.equal(root.get("seatCapacity"), searchCriteria.getSeatingCapacity()));
 			}
 
 			if (searchCriteria.getPricePerSeat() > 0) {

@@ -11,7 +11,7 @@ public class FlightSearchCriteria {
 
 	int offset = 0;
 	int limit = 100;
-	String sortOn = "flightId";
+	String sortOn = "id";
 	String sortOrder = "ASC";
 
 	private String flightName;

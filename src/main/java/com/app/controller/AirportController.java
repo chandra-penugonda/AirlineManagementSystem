@@ -1,11 +1,11 @@
 package com.app.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +37,7 @@ public class AirportController {
 	}
 
 	@GetMapping("/getAllAirportInfo")
-	public Page<Airport> fetchAllAirports(AirportSearchCriteria airportSearchCriteria) {
+	public List<Airport> fetchAllAirports(AirportSearchCriteria airportSearchCriteria) {
 		return airportService.fetchAllAirports(airportSearchCriteria);
 	}
 

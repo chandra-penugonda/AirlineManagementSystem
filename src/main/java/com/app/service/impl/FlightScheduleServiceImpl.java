@@ -8,75 +8,75 @@ import org.springframework.stereotype.Service;
 
 import com.app.criteria.FlightScheduleSearchCriteria;
 import com.app.criteria.specification.FlightScheduleSearchSpecification;
-import com.app.dao.FlightDao;
-import com.app.dao.FlightScheduleDao;
 import com.app.exception.DuplicateDataException;
 import com.app.exception.InvalidResourceException;
 import com.app.exception.ResourceNotFoundException;
 import com.app.model.Flight;
 import com.app.model.FlightSchedule;
+import com.app.repository.FlightRepository;
+import com.app.repository.FlightScheduleRepository;
 import com.app.service.FlightScheduleService;
 
 @Service
 public class FlightScheduleServiceImpl implements FlightScheduleService {
 
 	@Autowired
-	FlightScheduleDao flightScheduleDao;
+	FlightScheduleRepository flightScheduleRepository;
 
 	@Autowired
-	FlightDao flightDao;
+	FlightRepository flightRepository;
 
 	@Override
 	public String addFlightSchedule(FlightSchedule flightSchedule) {
 
-		Optional<FlightSchedule> filghtScheduleById = flightScheduleDao.findById(flightSchedule.getFlightScheduleId());
+		Optional<FlightSchedule> filghtScheduleById = flightScheduleRepository.findById(flightSchedule.getId());
 
 		if (!filghtScheduleById.isPresent()) {
 
-			Long flightId = flightSchedule.getFlight().getFlightID();
-			Optional<Flight> flightById = flightDao.findById(flightId);
+			Long flightId = flightSchedule.getFlight().getId();
+			Optional<Flight> flightById = flightRepository.findById(flightId);
 
 			if (flightById.isPresent()) {
-				flightScheduleDao.save(flightSchedule);
+				flightScheduleRepository.save(flightSchedule);
 				return "FlightSchedule information added successfully";
 			} else {
 				throw new InvalidResourceException("Flight with Id: " + flightId + " not exists");
 			}
 		} else {
 			throw new DuplicateDataException(
-					"FlightSchedule already exists with Id: " + flightSchedule.getFlightScheduleId());
+					"FlightSchedule already exists with Id: " + flightSchedule.getId());
 		}
 	}
 
 	@Override
 	public Page<FlightSchedule> fetchAllFlightSchedules(FlightScheduleSearchCriteria flightScheduleSearchCriteria) {
-		return flightScheduleDao.findAll(FlightScheduleSearchSpecification.findByCriteria(flightScheduleSearchCriteria),
+		return flightScheduleRepository.findAll(FlightScheduleSearchSpecification.findByCriteria(flightScheduleSearchCriteria),
 				flightScheduleSearchCriteria.toPageRequest());
 	}
 
 	@Override
 	public Optional<FlightSchedule> fetchFlightScheduleById(Long flightScheduleId) {
-		return flightScheduleDao.findById(flightScheduleId);
+		return flightScheduleRepository.findById(flightScheduleId);
 	}
 
 	@Override
 	public FlightSchedule updateFlightScheduleDetails(FlightSchedule flightSchedule) {
 
-		Optional<FlightSchedule> flightScheduleById = flightScheduleDao.findById(flightSchedule.getFlightScheduleId());
+		Optional<FlightSchedule> flightScheduleById = flightScheduleRepository.findById(flightSchedule.getId());
 
 		if (flightScheduleById.isPresent()) {
 
-			Long flightId = flightSchedule.getFlight().getFlightID();
-			Optional<Flight> flightById = flightDao.findById(flightId);
+			Long flightId = flightSchedule.getFlight().getId();
+			Optional<Flight> flightById = flightRepository.findById(flightId);
 
 			if (flightById.isPresent()) {
-				flightScheduleDao.save(flightSchedule);
+				flightScheduleRepository.save(flightSchedule);
 			} else {
 				throw new InvalidResourceException("Flight with Id: " + flightId + " not exists");
 			}
 		} else {
 			throw new ResourceNotFoundException(
-					"FlightSchedule with Id - " + flightSchedule.getFlightScheduleId() + " not exists");
+					"FlightSchedule with Id - " + flightSchedule.getId() + " not exists");
 		}
 		return flightSchedule;
 	}

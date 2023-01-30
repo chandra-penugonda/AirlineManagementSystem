@@ -13,7 +13,7 @@ public class AirportSearchCriteria {
 
 	int offset = 0;
 	int limit = 100;
-	String sortOn = "airportCode";
+	String sortOn = "id";
 	String sortOrder = "ASC";
 
 	private String airportCode;

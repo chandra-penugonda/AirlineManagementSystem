@@ -1,17 +1,16 @@
 package com.app.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.app.criteria.AirportSearchCriteria;
-import com.app.criteria.specification.AirportSearchSpecification;
-import com.app.dao.AirportDao;
 import com.app.exception.DuplicateDataException;
 import com.app.exception.ResourceNotFoundException;
 import com.app.model.Airport;
+import com.app.repository.AirportRepository;
 import com.app.service.AirportService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AirportServiceImpl implements AirportService {
 
 	@Autowired
-	AirportDao airportDao;
+	AirportRepository airportDao;
 
 	@Override
 	public String addAirport(Airport airport) {
@@ -38,9 +37,8 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	@Override
-	public Page<Airport> fetchAllAirports(AirportSearchCriteria airportSearchCriteria) {
-		return airportDao.findAll(AirportSearchSpecification.findByCriteria(airportSearchCriteria),
-				airportSearchCriteria.toPageRequest());
+	public List<Airport> fetchAllAirports(AirportSearchCriteria airportSearchCriteria) {
+		return airportDao.findAll();
 	}
 
 	@Override

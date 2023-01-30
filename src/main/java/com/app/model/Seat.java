@@ -10,19 +10,16 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "airport")
-public class Airport {
+@Table(name = "seat")
+public class Seat {
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	Long id;
 
-	@Column(name = "code")
-	private String airportCode;
+	@Column(name = "type")
+	String seatType;
 
-	@Column(name = "location")
-	private String airportLocation;
-
-	@Column(name = "name")
-	private String airportName;
+	@Column(name = "number")
+	String seatNumber;
 }

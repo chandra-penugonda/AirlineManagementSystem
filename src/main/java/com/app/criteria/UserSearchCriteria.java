@@ -11,7 +11,7 @@ public class UserSearchCriteria {
 
 	int offset = 0;
 	int limit = 100;
-	String sortOn = "userId";
+	String sortOn = "id";
 	String sortOrder = "ASC";
 
 	private String userType;

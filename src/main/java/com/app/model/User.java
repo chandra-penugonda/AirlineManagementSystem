@@ -1,21 +1,34 @@
 package com.app.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import com.app.model.enums.UserType;
+import javax.persistence.Table;
 
 import lombok.Data;
 
-@Entity
 @Data
+@Entity
+@Table(name = "user")
 public class User {
 
 	@Id
-	private Long userId;
-	private UserType userType;
+	@GeneratedValue
+	private Long id;
+
+	@Column(name = "userType")
+	private String userType;
+
+	@Column(name = "username")
 	private String userName;
+
+	@Column(name = "password")
 	private String password;
+
+	@Column(name = "mobile")
 	private String mobileNo;
+
+	@Column(name = "email")
 	private String emailId;
 }

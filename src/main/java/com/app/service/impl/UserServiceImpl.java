@@ -8,52 +8,52 @@ import org.springframework.stereotype.Service;
 
 import com.app.criteria.UserSearchCriteria;
 import com.app.criteria.specification.UserSearchSpecification;
-import com.app.dao.UserDao;
 import com.app.exception.DuplicateDataException;
 import com.app.exception.ResourceNotFoundException;
 import com.app.model.User;
+import com.app.repository.UserRepository;
 import com.app.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	UserDao userDao;
+	UserRepository userRepository;
 
 	@Override
 	public String addUser(User user) {
 
-		Optional<User> userById = userDao.findById(user.getUserId());
+		Optional<User> userById = userRepository.findById(user.getId());
 
 		if (!userById.isPresent()) {
-			userDao.save(user);
+			userRepository.save(user);
 			return "User added successfully";
 		} else {
-			throw new DuplicateDataException("User already exists with Id: " + user.getUserId());
+			throw new DuplicateDataException("User already exists with Id: " + user.getId());
 		}
 	}
 
 	@Override
 	public Page<User> fetchAllUsers(UserSearchCriteria userSearchCriteria) {
-		return userDao.findAll(UserSearchSpecification.findByCriteria(userSearchCriteria),
+		return userRepository.findAll(UserSearchSpecification.findByCriteria(userSearchCriteria),
 				userSearchCriteria.toPageRequest());
 	}
 
 	@Override
 	public Optional<User> fetchUserById(Long userId) {
 
-		return userDao.findById(userId);
+		return userRepository.findById(userId);
 	}
 
 	@Override
 	public User updateUserDetails(User user) {
 
-		Optional<User> userById = userDao.findById(user.getUserId());
+		Optional<User> userById = userRepository.findById(user.getId());
 
 		if (userById.isPresent()) {
-			userDao.save(user);
+			userRepository.save(user);
 		} else {
-			throw new ResourceNotFoundException("User with Id: " + user.getUserId() + " not exists");
+			throw new ResourceNotFoundException("User with Id: " + user.getId() + " not exists");
 		}
 		return user;
 	}
@@ -61,10 +61,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String deleteUser(Long userId) {
 
-		Optional<User> userById = userDao.findById(userId);
+		Optional<User> userById = userRepository.findById(userId);
 
 		if (userById.isPresent()) {
-			userDao.deleteById(userId);
+			userRepository.deleteById(userId);
 			return "User deleted successfully";
 		} else {
 			throw new ResourceNotFoundException("User with Id: " + userId + " not exists");

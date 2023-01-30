@@ -3,12 +3,10 @@ package com.app.service;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 
 import com.app.criteria.FlightScheduleSearchCriteria;
 import com.app.model.FlightSchedule;
 
-@Service
 public interface FlightScheduleService {
 
 	public String addFlightSchedule(FlightSchedule flightSchedule);

@@ -8,78 +8,80 @@ import org.springframework.stereotype.Service;
 
 import com.app.criteria.FlightReservationSearchCriteria;
 import com.app.criteria.specification.FlightReservationSearchSpecification;
-import com.app.dao.FlightReservationDao;
-import com.app.dao.FlightScheduleDao;
 import com.app.exception.DuplicateDataException;
 import com.app.exception.InvalidResourceException;
 import com.app.exception.ResourceNotFoundException;
 import com.app.model.FlightReservation;
 import com.app.model.FlightSchedule;
+import com.app.repository.FlightReservationRepository;
+import com.app.repository.FlightScheduleRepository;
 import com.app.service.FlightReservationService;
 
 @Service
 public class FlightReservationServiceImpl implements FlightReservationService {
 
 	@Autowired
-	FlightReservationDao flightReservationDao;
+	FlightReservationRepository flightReservationRepository;
 
 	@Autowired
-	FlightScheduleDao flightScheduleDao;
+	FlightScheduleRepository flightScheduleRepository;
 
 	@Override
 	public String createFlightReservation(FlightReservation flightReservation) {
 
-		Optional<FlightReservation> flightReservationById = flightReservationDao
-				.findById(flightReservation.getReservationID());
+		Optional<FlightReservation> flightReservationById = flightReservationRepository
+				.findById(flightReservation.getId());
 
 		if (!flightReservationById.isPresent()) {
-			Optional<FlightSchedule> flightScheduleById = flightScheduleDao
-					.findById(flightReservation.getFlightSchedule().getFlightScheduleId());
+			Optional<FlightSchedule> flightScheduleById = flightScheduleRepository
+					.findById(flightReservation.getFlightSchedule().getId());
 
 			if (flightScheduleById.isPresent()) {
 
-				flightReservationDao.save(flightReservation);
+				flightReservationRepository.save(flightReservation);
 				return "Flight Reservation created successfully";
 			} else {
 				throw new InvalidResourceException("Invalid Flight Schedule");
 			}
 		} else {
 			throw new DuplicateDataException(
-					"FlightReservation already exists with Id: " + flightReservation.getReservationID());
+					"FlightReservation already exists with Id: " + flightReservation.getId());
 		}
 	}
 
 	@Override
-	public Page<FlightReservation> fetchAllFlightReservations(FlightReservationSearchCriteria flightReservationsearchCriteria) {
-		return flightReservationDao.findAll(FlightReservationSearchSpecification.findByCriteria(flightReservationsearchCriteria),
+	public Page<FlightReservation> fetchAllFlightReservations(
+			FlightReservationSearchCriteria flightReservationsearchCriteria) {
+		return flightReservationRepository.findAll(
+				FlightReservationSearchSpecification.findByCriteria(flightReservationsearchCriteria),
 				flightReservationsearchCriteria.toPageRequest());
 	}
 
 	@Override
 	public Optional<FlightReservation> fetchFlightReservationById(Long flightReservationId) {
 
-		return flightReservationDao.findById(flightReservationId);
+		return flightReservationRepository.findById(flightReservationId);
 	}
 
 	@Override
 	public FlightReservation updateFlightReservationDetails(FlightReservation flightReservation) {
 
-		Optional<FlightReservation> flightReservationById = flightReservationDao
-				.findById(flightReservation.getReservationID());
+		Optional<FlightReservation> flightReservationById = flightReservationRepository
+				.findById(flightReservation.getId());
 
 		if (flightReservationById.isPresent()) {
 
-			Optional<FlightSchedule> flightScheduleById = flightScheduleDao
-					.findById(flightReservation.getFlightSchedule().getFlightScheduleId());
+			Optional<FlightSchedule> flightScheduleById = flightScheduleRepository
+					.findById(flightReservation.getFlightSchedule().getId());
 
 			if (flightScheduleById.isPresent()) {
-				flightReservationDao.save(flightReservation);
+				flightReservationRepository.save(flightReservation);
 			} else {
 				throw new InvalidResourceException("Invalid Flight Schedule");
 			}
 		} else {
 			throw new ResourceNotFoundException(
-					"FlightReservation with Id: " + flightReservation.getReservationID() + " not exists");
+					"FlightReservation with Id: " + flightReservation.getId() + " not exists");
 		}
 		return flightReservation;
 	}
@@ -87,10 +89,10 @@ public class FlightReservationServiceImpl implements FlightReservationService {
 	@Override
 	public String deleteFlightReservation(Long flightReservationId) {
 
-		Optional<FlightReservation> flightReservationById = flightReservationDao.findById(flightReservationId);
+		Optional<FlightReservation> flightReservationById = flightReservationRepository.findById(flightReservationId);
 
 		if (flightReservationById.isPresent()) {
-			flightReservationDao.deleteById(flightReservationId);
+			flightReservationRepository.deleteById(flightReservationId);
 			return "Flight Reservation deleted successfully";
 		} else {
 			throw new ResourceNotFoundException("FlightReservation with Id: " + flightReservationId + " not exists");

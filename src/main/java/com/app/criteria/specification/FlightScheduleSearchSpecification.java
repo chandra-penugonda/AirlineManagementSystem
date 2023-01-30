@@ -32,7 +32,7 @@ public class FlightScheduleSearchSpecification {
 			}
 
 			if (searchCriteria.getFlightStatus() != null) {
-				predicates.add(cb.like(root.get("flightStatus"), "%" + searchCriteria.getFlightStatus() + "%"));
+				predicates.add(cb.like(root.get("status"), "%" + searchCriteria.getFlightStatus() + "%"));
 			}
 
 			if (predicates.size() > 0) {

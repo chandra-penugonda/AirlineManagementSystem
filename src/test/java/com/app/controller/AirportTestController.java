@@ -17,12 +17,13 @@ public class AirportTestController extends ApplicationTest {
 	public void setUp() {
 		super.setUp();
 	}
-	
+
 	@Test
-	public void getAirportByCode() throws Exception {
-		String uri = "/getAirportInfo/MUM";
-		MvcResult response = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON)).andReturn();
-		
+	public void getAirportById() throws Exception {
+		String uri = "/airport/getAirportInfo/1";
+		MvcResult response = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON))
+				.andReturn();
+
 		int status = response.getResponse().getStatus();
 		assertEquals(200, status);
 	}
